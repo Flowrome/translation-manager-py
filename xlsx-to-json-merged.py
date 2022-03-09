@@ -5,6 +5,8 @@ from os.path import exists
 from common import checkFolders, language
 from openpyxl import load_workbook
 from math import floor
+from pydash import merge
+
 
 checkFolders()
 
@@ -43,6 +45,6 @@ if exists(xlsxPath) and exists(jsonPath):
     with open(jsonPath, 'r') as f:
         data = load(f)
         with open(outputPath, 'w') as outfile:
-            outfile.write(dumps({**data, **translationJson}))
+            outfile.write(dumps(merge(data, translationJson)))
 else:
     print(f'[ERROR] no file at {xlsxPath}')
