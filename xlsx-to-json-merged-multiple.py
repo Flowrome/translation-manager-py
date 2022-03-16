@@ -42,6 +42,13 @@ def convertInJson(trans):
     return objecto
 
 
+def removeElementsFromLanguageList(elem):
+    if elem.value == None or elem.value.lower() == 'note':
+        return False
+    else:
+        return True
+
+
 if exists(xlsxPath):
     print(f'[READING] {xlsxPath}')
     wb = load_workbook(xlsxPath)
@@ -50,9 +57,7 @@ if exists(xlsxPath):
     del translationIdsColumn[0]
     languages = list(ws[1])
     del languages[0]
-    for index in range(len(languages)):
-        if languages[index].value.lower() == 'note':
-            del languages[index]
+    languages = filter(removeElementsFromLanguageList, languages)
     translations = []
     for language in languages:
         coupled = {}
