@@ -1,4 +1,5 @@
 from os import mkdir, path
+from tabnanny import check
 
 
 def language():
@@ -20,3 +21,6 @@ def checkFolders():
         mkdir('outputs/merged-translations')
     if (path.exists('./outputs/merged-translations-multiple') == False):
         mkdir('outputs/merged-translations-multiple')
+
+
+checkFolders()
