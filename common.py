@@ -10,7 +10,7 @@ def checkFolders():
     if (path.exists('./inputs') == False):
         mkdir('inputs')
     if (path.exists('./inputs-multiple') == False):
-        mkdir('inputs')
+        mkdir('inputs-multiple')
     if (path.exists('./outputs') == False):
         mkdir('outputs')
     if (path.exists('./outputs/exported-xlsx') == False):
