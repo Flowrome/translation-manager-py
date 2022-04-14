@@ -33,7 +33,13 @@ def createWorkbook(j):
         colums.append(cell)
     ws.append(colums)
     keys = []
-    for k in j[0]['normalized']:
+    which_has_major_entries = j[0]['normalized']
+    for listm in j:
+        elem_list = listm['normalized']
+        if (len(elem_list) > len(which_has_major_entries)):
+            which_has_major_entries = elem_list
+
+    for k in which_has_major_entries:
         keys.append(k)
     matrix = []
     for key in keys:
@@ -43,12 +49,15 @@ def createWorkbook(j):
         counter = [keyCell]
         for item in j:
             normalized = item['normalized']
-            cell = Cell(ws, value=normalized[key], column="A", row=1)
+            cell = Cell(ws, value='', column="A", row=1)
+            if key in normalized:
+                cell = Cell(ws, value=normalized[key], column="A", row=1)
             cell.border = Border(left=Side(border_style='thin',  color='FF000000'), right=Side(
                 border_style='thin', color='FF000000'), top=Side(border_style='thin', color='FF000000'), bottom=Side(border_style='thin'))
             counter.append(cell)
         matrix.append(counter)
 
+    
     for elem in matrix:
         ws.append(elem)
 
@@ -99,7 +108,6 @@ if glob(jsonPath, recursive=True) != []:
                                           [list(data[list(data.keys())[0]].keys())[0]])
                 final_object = {'region': region, 'normalized': normalized}
                 data_regions.append(final_object)
-
     createWorkbook(data_regions)
 else:
     print(f'[ERROR] no file at {jsonPath}')
